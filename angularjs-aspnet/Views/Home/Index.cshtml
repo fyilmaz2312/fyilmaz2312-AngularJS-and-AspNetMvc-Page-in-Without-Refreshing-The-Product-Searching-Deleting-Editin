@@ -1,0 +1,178 @@
+﻿@{
+    ViewBag.Title = "Yönetim Anasayfa";
+}
+
+<div style="width: 1170px; margin: auto; padding: 30px;">
+    <div style="text-align:center">
+        <b>Ürün Ara : </b><input type="text" ng-model="p_name" id="txtSearch" />
+        <input type="button" class="btn btn-warning" value="SEÇİLİ KAYITLARI SİL" ng-click="DelSites()" />
+        <input type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertModal" value="YENİ ÜRÜN EKLE" />
+    </div>
+
+
+    <table id="products" style="width: 100%; margin: auto; padding: 30px;margin-top:20px">
+        <tr>
+            <th style="padding-bottom:20px;font-size: 20px; font-weight: bold;"><b><input type="checkbox" ng-click="selectAll()" ng-model="isSelectAll" />  Tümünü Seç</b></th>
+            <th style="padding-bottom:20px;font-size: 20px; font-weight: bold;">ÜRÜN KODU</th>
+            <th style="padding-bottom:20px;font-size: 20px; font-weight: bold;">ÜRÜN ADI</th>
+            <th style="padding-bottom: 20px; font-size: 20px; font-weight: bold;">KATEGORİ</th>
+            <th style="padding-bottom: 20px; font-size: 20px; font-weight: bold;">FİYAT</th>
+            <th style="padding-bottom: 20px; font-size: 20px; font-weight: bold;">KDV</th>
+            <th style="padding-bottom: 20px; font-size: 20px; font-weight: bold;">STOK</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="item in Product | filter:p_name">
+            <td><input type="checkbox" ng-model="item.IsDeleted" /></td>
+            <td style="padding-bottom: 5px; font-size: 18px;">
+                {{item.p_id}}
+            </td>
+            <td style="padding-bottom: 5px; font-size: 18px;">
+                {{item.p_name}}
+            </td>
+            <td style="padding-bottom: 5px; font-size: 18px;">
+                {{item.k_name}}
+            </td>
+            <td style="padding-bottom: 5px; font-size: 18px;">
+                {{item.p_price}}
+            </td>
+            <td style="padding-bottom: 5px; font-size: 18px;">
+                {{item.kdv}}
+            </td>
+            <td style="padding-bottom: 5px; font-size: 18px;">
+                {{item.stok}}
+            </td>
+            <td align="center">
+                <a class="dropdown-item" href="#" style="padding-bottom: 5px; font-size: 18px;" data-toggle="modal" data-target="#updateModal{{item.p_id}}">Düzenle</a>
+                <div class="modal fade" id="updateModal{{item.p_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div data-ng-init="loadrecord(@Convert.ToInt32(Request.QueryString["id"]))">
+                        <div class="container popupmodal">
+                            <div class="row">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-5 popupmodal1">
+                                    <div class="modal-header" style="margin-bottom:10px;">
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        <h3 class="modal-title" style="color:#000;" id="exampleModalLabel">Ürün Düzenleme Ekranı</h3>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ürün Adı</label>
+                                        <input type="text" ng-model="item.p_name" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Kategori</label>
+                                        <input type="text" ng-model="item.k_name" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Fiyatı</label>
+                                        <input type="text" ng-model="item.p_price" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Kdv</label>
+                                        <input type="text" ng-model="item.kdv" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Kdv</label>
+                                        <input type="text" ng-model="item.stok" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="button" class="btn btn-primary" ng-click="Update(item.p_id,item.p_name,item.k_name,item.p_price,item.kdv,item.stok)" value="Kaydet" />
+                                        <input type="button" class="btn btn-danger" data-dismiss="modal" value="İptal" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<!--#region Yeni Kayıt  -->
+<table>
+    <tr>
+        <td align="center">
+            <div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="container popupmodal">
+
+                    <div class="row">
+
+                        <div class="col-sm-2"></div>
+
+                        <div class="col-sm-5 popupmodal1">
+                            <div class="modal-header" style="margin-bottom:10px;">
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <h3 class="modal-title" style="color:#000;" id="exampleModalLabel">Yeni Ürün Ekleme Ekranı</h3>
+                            </div>
+                            <div class="form-group">
+
+                                <label>Ürün Adı</label>
+
+                                <input type="text" class="form-control" id='txtName' ng-model='pname' />
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Kategori</label>
+
+                                <input type="text" class="form-control" id='txtKat' ng-model='kname' />
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Fiyatı</label>
+
+                                <input type="text" class="form-control" id='txtPrice' ng-model='price' />
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Kdv</label>
+
+                                <input type="text" class="form-control" id='txtKdv' ng-model='kdv' />
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Stok</label>
+
+                                <input type="text" class="form-control" id='txtStok' ng-model='stok' />
+
+                            </div>
+
+                            <div class="form-group">
+                                <input type="button" class="btn btn-success" ng-click='SaveData()' id="btnSave" value="Kaydet" />
+                                <input type="button" class="btn btn-danger" data-dismiss="modal" value="Kapat" />
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-2"></div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </td>
+    </tr>
+</table>
+
+
+<!--#endregion -->
+
+
+@section scripts{
+
+    <script src="~/Views/Home/home.js"></script>
+}

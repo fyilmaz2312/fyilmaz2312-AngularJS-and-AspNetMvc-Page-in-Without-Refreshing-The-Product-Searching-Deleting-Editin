@@ -1,0 +1,104 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+
+
+.modal {
+    top: 100px;
+}
+
+.popupmodal {
+    width: 450px;
+}
+
+    .popupmodal .popupmodal1 {
+        background: #fff;
+        padding: 30px;
+        border: 1px solid #000;
+        border-radius: 30px;
+        width: 100%;
+    }
+
+
+#products {
+    width: 100%;
+    font: bold 1.25em "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 6px 6px 6px 12px;
+    background: #C1DAD7;
+    border-collapse: collapse;
+}
+
+    #products th {
+        color: #41AA7F;
+        padding: 6px 6px 6px 12px;
+    }
+
+    #products td {
+        padding: 6px 6px 6px 12px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 300;
+    }
+
+    #products tr {
+        color: #112233;
+        background: #fff;
+    }
+
+        #products tr:hover {
+            background: #202020;
+            color: #fff;
+        }
+
+.navbar-nav {
+    width: 100%;
+}
+
+    .navbar-nav li a {
+        font-size: 18px;
+        color: #41AA7F !important;
+    }
+
+        .navbar-nav li a:hover {
+            font-size: 18px;
+            color: #000 !important;
+        }
+
+
+.navbar-inverse {
+    background: #fff !important;
+}
+
+#form0 {
+    margin: auto;
+    width: 200px;
+}
+
+.modal-backdrop {
+    display: none;
+}
